@@ -1,8 +1,10 @@
 import React from 'react';
 import ProductCard from './ProductCard';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 
 const Offers = () => {
+  const { products } = useProducts();
+  
   // Simulating offers by taking the first two products and applying a discount
   const offerProducts = products.slice(0, 2).map(p => ({
     ...p,

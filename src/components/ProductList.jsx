@@ -1,8 +1,10 @@
 import React from 'react';
 import ProductCard from './ProductCard';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 
 const ProductList = () => {
+  const { products } = useProducts();
+
   return (
     <section id="coleccion" style={styles.section}>
       <div className="container">

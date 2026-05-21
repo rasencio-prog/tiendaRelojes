@@ -17,6 +17,7 @@ const Navbar = () => {
           <a href="#vender" style={styles.navLink}>Vende tu reloj</a>
           <a href="#nosotros" style={styles.navLink}>Quiénes somos</a>
           <a href="#contacto" style={styles.navLink}>Contacto</a>
+          <a href="#admin" style={styles.navLink}>Administración</a>
         </div>
         <div style={styles.actions}>
           <button style={styles.cartBtn} onClick={toggleCart}>
