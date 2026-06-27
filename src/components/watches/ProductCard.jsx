@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { formatPrice } from '../../data/products'
-import { useCart } from '../../context/CartContext'
 
 const PLACEHOLDER = '/watch_submariner.png'
 
 export default function ProductCard({ product }) {
-  const { addToCart } = useCart()
   const [imgIndex, setImgIndex] = useState(0)
 
   const {
@@ -20,10 +18,9 @@ export default function ProductCard({ product }) {
     imagenes = [],
   } = product
 
-  const images         = imagenes.length ? imagenes.map(i => i.url_imagen) : [PLACEHOLDER]
-  const hasMultiple    = images.length > 1
-  const outOfStock     = stock === 0
-  const lowStock       = stock === 1
+  const images      = imagenes.length ? imagenes.map(i => i.url_imagen) : [PLACEHOLDER]
+  const hasMultiple = images.length > 1
+  const lowStock    = stock === 1
 
   const prev = (e) => { e.stopPropagation(); setImgIndex(i => (i - 1 + images.length) % images.length) }
   const next = (e) => { e.stopPropagation(); setImgIndex(i => (i + 1) % images.length) }
@@ -106,27 +103,15 @@ export default function ProductCard({ product }) {
             </span>
           </div>
 
-          {outOfStock ? (
-            <Link
-              to={`/producto/${product.id}`}
-              className="text-[0.85rem] font-semibold uppercase px-4 py-2 rounded border transition-all duration-200"
-              style={{ color: '#a3a3a3', borderColor: '#a3a3a3', letterSpacing: '1px' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#c5a059'; e.currentTarget.style.color = '#c5a059' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#a3a3a3'; e.currentTarget.style.color = '#a3a3a3' }}
-            >
-              Detalle
-            </Link>
-          ) : (
-            <button
-              onClick={() => addToCart(product)}
-              className="text-[0.85rem] font-semibold uppercase px-4 py-2 rounded border transition-all duration-200"
-              style={{ color: '#c5a059', borderColor: '#c5a059', fontFamily: "'Inter', sans-serif", letterSpacing: '1px', backgroundColor: 'transparent' }}
-              onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c5a059'; e.currentTarget.style.color = '#0a0a0a' }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#c5a059' }}
-            >
-              Agregar
-            </button>
-          )}
+          <Link
+            to={`/producto/${product.id}`}
+            className="text-[0.85rem] font-semibold uppercase px-4 py-2 rounded border transition-all duration-200"
+            style={{ color: '#c5a059', borderColor: '#c5a059', letterSpacing: '1px' }}
+            onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c5a059'; e.currentTarget.style.color = '#0a0a0a' }}
+            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#c5a059' }}
+          >
+            Detalle
+          </Link>
         </div>
       </div>
     </div>
