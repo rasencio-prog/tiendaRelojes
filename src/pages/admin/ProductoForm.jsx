@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getProducto, crearProducto, actualizarProducto } from '../../services/api'
 
 const EMPTY = {
-  marca: '', nombre: '', descripcion: '',
+  marca: '', nombre: '', descripcion: '', ficha_tecnica: '',
   precio: '', precio_original: '', porcentaje_descuento: 0,
   stock: 0, activo: true,
 }
@@ -35,6 +35,7 @@ export default function ProductoForm() {
           marca:                p.marca,
           nombre:               p.nombre,
           descripcion:          p.descripcion,
+          ficha_tecnica:        p.ficha_tecnica ?? '',
           precio:               p.precio,
           precio_original:      p.precio_original ?? '',
           porcentaje_descuento: p.porcentaje_descuento,
@@ -219,6 +220,15 @@ export default function ProductoForm() {
               className={`${inputCls} resize-y`}
               style={{ ...inputBase, borderColor: errors.descripcion ? '#e74c3c' : '#2a2a2a' }} />
             {errors.descripcion && <span className={errCls} style={{ color: '#e74c3c' }}>{errors.descripcion}</span>}
+          </div>
+
+          {/* Ficha Técnica */}
+          <div className={fieldCls}>
+            <label className={labelCls} style={{ color: '#a3a3a3' }}>Ficha Técnica</label>
+            <textarea name="ficha_tecnica" value={form.ficha_tecnica} onChange={handleChange}
+              rows={5} placeholder="Ej: Calibre: 3235 · Diámetro: 41mm · Material caja: Oystersteel…"
+              className={`${inputCls} resize-y`}
+              style={{ ...inputBase, borderColor: '#2a2a2a' }} />
           </div>
 
           {/* Activo */}

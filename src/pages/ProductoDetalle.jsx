@@ -165,10 +165,24 @@ export default function ProductoDetalle() {
               <div className="border-t mb-8" style={{ borderColor: '#222' }} />
 
               {/* Descripción */}
-              <p className="text-[0.95rem] leading-relaxed mb-10"
+              <p className="text-[0.95rem] leading-relaxed mb-8"
                 style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
                 {producto.descripcion}
               </p>
+
+              {/* Ficha Técnica */}
+              {producto.ficha_tecnica && (
+                <div className="mb-10">
+                  <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3"
+                    style={{ color: '#c5a059', fontFamily: "'Inter', sans-serif" }}>
+                    Ficha Técnica
+                  </h2>
+                  <p className="text-[0.9rem] leading-relaxed whitespace-pre-line"
+                    style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
+                    {producto.ficha_tecnica}
+                  </p>
+                </div>
+              )}
 
               {/* Stock / Acción */}
               <div className="mt-auto flex flex-col gap-3">

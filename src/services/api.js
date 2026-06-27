@@ -43,7 +43,7 @@ export const toggleActivoProducto = (id, activo) =>
 
 function buildProductoForm(data) {
   const form = new FormData()
-  const campos = ['marca', 'nombre', 'descripcion', 'precio', 'precio_original', 'porcentaje_descuento', 'stock']
+  const campos = ['marca', 'nombre', 'descripcion', 'ficha_tecnica', 'precio', 'precio_original', 'porcentaje_descuento', 'stock']
   campos.forEach(k => { if (data[k] !== undefined && data[k] !== '') form.append(k, data[k]) })
   // FormData convierte boolean a string "true"/"false" — Laravel solo acepta 1/0
   form.append('activo', data.activo ? 1 : 0)
