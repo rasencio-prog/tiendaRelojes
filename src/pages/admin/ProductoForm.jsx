@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getProducto, crearProducto, actualizarProducto } from '../../services/api'
+import RichTextEditor from '../../components/ui/RichTextEditor'
 
 const EMPTY = {
   marca: '', nombre: '', descripcion: '', ficha_tecnica: '',
@@ -215,20 +216,23 @@ export default function ProductoForm() {
           {/* Descripción */}
           <div className={fieldCls}>
             <label className={labelCls} style={{ color: '#a3a3a3' }}>Descripción *</label>
-            <textarea name="descripcion" value={form.descripcion} onChange={handleChange}
-              rows={4} placeholder="Describe el reloj: materiales, calibre, historia…"
-              className={`${inputCls} resize-y`}
-              style={{ ...inputBase, borderColor: errors.descripcion ? '#e74c3c' : '#2a2a2a' }} />
+            <RichTextEditor
+              value={form.descripcion}
+              onChange={val => {
+                setForm(prev => ({ ...prev, descripcion: val }))
+                if (errors.descripcion) setErrors(prev => ({ ...prev, descripcion: undefined }))
+              }}
+            />
             {errors.descripcion && <span className={errCls} style={{ color: '#e74c3c' }}>{errors.descripcion}</span>}
           </div>
 
           {/* Ficha Técnica */}
           <div className={fieldCls}>
             <label className={labelCls} style={{ color: '#a3a3a3' }}>Ficha Técnica</label>
-            <textarea name="ficha_tecnica" value={form.ficha_tecnica} onChange={handleChange}
-              rows={5} placeholder="Ej: Calibre: 3235 · Diámetro: 41mm · Material caja: Oystersteel…"
-              className={`${inputCls} resize-y`}
-              style={{ ...inputBase, borderColor: '#2a2a2a' }} />
+            <RichTextEditor
+              value={form.ficha_tecnica}
+              onChange={val => setForm(prev => ({ ...prev, ficha_tecnica: val }))}
+            />
           </div>
 
           {/* Activo */}

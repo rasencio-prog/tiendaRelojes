@@ -181,10 +181,9 @@ export default function ProductoDetalle() {
                   style={{ color: '#c5a059', fontFamily: "'Inter', sans-serif" }}>
                   Descripción
                 </h2>
-                <p className="text-[0.95rem] leading-relaxed"
-                  style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
-                  {producto.descripcion}
-                </p>
+                <div className="rich-content text-[0.95rem] leading-relaxed"
+                  style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}
+                  dangerouslySetInnerHTML={{ __html: producto.descripcion || '' }} />
               </div>
 
               {/* Ficha Técnica */}
@@ -193,10 +192,9 @@ export default function ProductoDetalle() {
                   style={{ color: '#c5a059', fontFamily: "'Inter', sans-serif" }}>
                   Ficha Técnica
                 </h2>
-                <p className="text-[0.9rem] leading-relaxed whitespace-pre-line"
-                  style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
-                  {producto.ficha_tecnica || '—'}
-                </p>
+                <div className="rich-content text-[0.9rem] leading-relaxed"
+                  style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}
+                  dangerouslySetInnerHTML={{ __html: producto.ficha_tecnica || '—' }} />
               </div>
 
               {/* Stock / Acción */}

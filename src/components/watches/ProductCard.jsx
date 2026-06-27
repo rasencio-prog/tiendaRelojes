@@ -89,7 +89,7 @@ export default function ProductCard({ product, hideDescripcion = false }) {
         {!hideDescripcion && (
           <p className="text-[0.9rem] leading-relaxed flex-grow mb-6"
             style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
-            {descripcion}
+            {descripcion?.replace(/<[^>]*>/g, '') ?? ''}
           </p>
         )}
 

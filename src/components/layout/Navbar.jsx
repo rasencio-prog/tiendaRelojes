@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../../context/CartContext'
 
 const NAV_LINKS = [
-  { label: 'Colección',     to: '/coleccion' },
-  { label: 'Ofertas',       to: '/ofertas'   },
-  { label: 'Vende tu Reloj', to: '/vender'   },
-  { label: 'Quiénes Somos', to: '/nosotros'  },
-  { label: 'Contacto',      to: '/contacto'  },
+  { label: 'Colección',      to: '/coleccion'        },
+  { label: 'Ofertas',        to: '/ofertas'           },
+  { label: 'Vende tu Reloj', to: '/vender'            },
+  { label: 'Quiénes Somos',  to: '/nosotros'          },
+  { label: 'Contacto',       to: '/contacto'          },
+  { label: 'Administración', to: '/admin/productos'   },
 ]
 
 export default function Navbar() {
