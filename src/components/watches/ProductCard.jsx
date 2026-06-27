@@ -4,7 +4,7 @@ import { formatPrice } from '../../data/products'
 
 const PLACEHOLDER = '/watch_submariner.png'
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, hideDescripcion = false }) {
   const [imgIndex, setImgIndex] = useState(0)
 
   const {
@@ -86,12 +86,14 @@ export default function ProductCard({ product }) {
           style={{ fontFamily: "'Playfair Display', serif", color: '#f5f5f5' }}>
           {nombre}
         </h3>
-        <p className="text-[0.9rem] leading-relaxed flex-grow mb-6"
-          style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
-          {descripcion}
-        </p>
+        {!hideDescripcion && (
+          <p className="text-[0.9rem] leading-relaxed flex-grow mb-6"
+            style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
+            {descripcion}
+          </p>
+        )}
 
-        <div className="flex items-center justify-between mt-auto">
+        <div className="flex flex-col mt-auto gap-4">
           <div className="flex flex-col">
             {precio_original && (
               <span className="text-[0.85rem] line-through mb-0.5" style={{ color: '#666' }}>
@@ -105,7 +107,7 @@ export default function ProductCard({ product }) {
 
           <Link
             to={`/producto/${product.id}`}
-            className="text-[0.85rem] font-semibold uppercase px-4 py-2 rounded border transition-all duration-200"
+            className="text-[0.85rem] font-semibold uppercase px-4 py-2 rounded border transition-all duration-200 text-center"
             style={{ color: '#c5a059', borderColor: '#c5a059', letterSpacing: '1px' }}
             onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#c5a059'; e.currentTarget.style.color = '#0a0a0a' }}
             onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#c5a059' }}

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getProducto } from '../services/api'
+import { getProducto, getProductos } from '../services/api'
 import PublicLayout from '../components/layout/PublicLayout'
 import { formatPrice } from '../data/products'
 import { useCart } from '../context/CartContext'
+import ProductCard from '../components/watches/ProductCard'
 
 const PLACEHOLDER = '/watch_submariner.png'
 const WA_NUMBER   = '56900000000'
@@ -13,14 +14,24 @@ export default function ProductoDetalle() {
   const navigate     = useNavigate()
   const { addToCart } = useCart()
 
-  const [producto, setProducto] = useState(null)
-  const [loading,  setLoading]  = useState(true)
-  const [error,    setError]    = useState(null)
-  const [imgIndex, setImgIndex] = useState(0)
+  const [producto,    setProducto]    = useState(null)
+  const [loading,     setLoading]     = useState(true)
+  const [error,       setError]       = useState(null)
+  const [imgIndex,    setImgIndex]    = useState(0)
+  const [relacionados, setRelacionados] = useState([])
 
   useEffect(() => {
+    setLoading(true)
+    setImgIndex(0)
     getProducto(id)
-      .then(setProducto)
+      .then(p => {
+        setProducto(p)
+        return getProductos()
+      })
+      .then(todos => {
+        const otros = todos.filter(p => String(p.id) !== String(id))
+        setRelacionados(otros.slice(0, 4))
+      })
       .catch(() => setError('No se pudo cargar el producto.'))
       .finally(() => setLoading(false))
   }, [id])
@@ -165,24 +176,28 @@ export default function ProductoDetalle() {
               <div className="border-t mb-8" style={{ borderColor: '#222' }} />
 
               {/* Descripción */}
-              <p className="text-[0.95rem] leading-relaxed mb-8"
-                style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
-                {producto.descripcion}
-              </p>
+              <div className="mb-8">
+                <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3"
+                  style={{ color: '#c5a059', fontFamily: "'Inter', sans-serif" }}>
+                  Descripción
+                </h2>
+                <p className="text-[0.95rem] leading-relaxed"
+                  style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
+                  {producto.descripcion}
+                </p>
+              </div>
 
               {/* Ficha Técnica */}
-              {producto.ficha_tecnica && (
-                <div className="mb-10">
-                  <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3"
-                    style={{ color: '#c5a059', fontFamily: "'Inter', sans-serif" }}>
-                    Ficha Técnica
-                  </h2>
-                  <p className="text-[0.9rem] leading-relaxed whitespace-pre-line"
-                    style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
-                    {producto.ficha_tecnica}
-                  </p>
-                </div>
-              )}
+              <div className="mb-10">
+                <h2 className="text-sm font-semibold uppercase tracking-[2px] mb-3"
+                  style={{ color: '#c5a059', fontFamily: "'Inter', sans-serif" }}>
+                  Ficha Técnica
+                </h2>
+                <p className="text-[0.9rem] leading-relaxed whitespace-pre-line"
+                  style={{ color: '#a3a3a3', fontFamily: "'Inter', sans-serif" }}>
+                  {producto.ficha_tecnica || '—'}
+                </p>
+              </div>
 
               {/* Stock / Acción */}
               <div className="mt-auto flex flex-col gap-3">
@@ -229,6 +244,23 @@ export default function ProductoDetalle() {
             </div>
 
           </div>
+
+          {/* Productos Relacionados */}
+          {relacionados.length > 0 && (
+            <div className="mt-20">
+              <div className="border-t mb-10" style={{ borderColor: '#222' }} />
+              <h2 className="text-[1.4rem] mb-8"
+                style={{ fontFamily: "'Playfair Display', serif", color: '#f5f5f5' }}>
+                Otros productos
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {relacionados.map(p => (
+                  <ProductCard key={p.id} product={p} hideDescripcion />
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </PublicLayout>
