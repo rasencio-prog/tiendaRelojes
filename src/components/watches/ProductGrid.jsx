@@ -35,7 +35,7 @@ export default function ProductGrid() {
         )}
 
         {!loading && !error && productos?.length > 0 && (
-          <div className="grid gap-8" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
+          <div className="grid gap-8" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))' }}>
             {productos.map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
