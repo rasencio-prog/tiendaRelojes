@@ -20,23 +20,25 @@ export default function ProductCard({ product, hideDescripcion = false }) {
 
   const images      = imagenes.length ? imagenes.map(i => i.url_imagen) : [PLACEHOLDER]
   const hasMultiple = images.length > 1
-  const lowStock    = stock === 1
 
   const prev = (e) => { e.stopPropagation(); setImgIndex(i => (i - 1 + images.length) % images.length) }
   const next = (e) => { e.stopPropagation(); setImgIndex(i => (i + 1) % images.length) }
 
   return (
     <div
+      data-testid="product-card"
       className="flex flex-col rounded-[4px] overflow-hidden border transition-transform duration-200 hover:-translate-y-[5px]"
       style={{ backgroundColor: '#1a1a1a', borderColor: '#333' }}
     >
       {/* Imagen / Carousel */}
       <div className="relative w-full aspect-square bg-black overflow-hidden group">
-        <img
-          src={images[imgIndex]}
-          alt={nombre}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        <Link to={`/producto/${product.id}`} className="block w-full h-full cursor-pointer">
+          <img
+            src={images[imgIndex]}
+            alt={nombre}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </Link>
 
         {hasMultiple && (
           <>
@@ -68,12 +70,6 @@ export default function ProductCard({ product, hideDescripcion = false }) {
           </span>
         )}
 
-        {lowStock && (
-          <span className="absolute top-2.5 right-2.5 px-2 py-1 text-xs font-semibold rounded z-10"
-            style={{ backgroundColor: 'rgba(243,156,18,0.9)', color: '#fff' }}>
-            Última unidad
-          </span>
-        )}
       </div>
 
       {/* Contenido */}

@@ -41,7 +41,7 @@ export default function Hero() {
         </p>
 
         <a
-          href="#coleccion"
+          href="/coleccion"
           className="inline-block px-8 py-3 text-sm font-semibold uppercase tracking-[1px] rounded transition-colors duration-200"
           style={{
             backgroundColor: '#c5a059',
